@@ -9,7 +9,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className='text-3xl font-bold'>Next Tailwind Test</h1>
+      <h1 className='text-3xl font-bold'>Next Github Test</h1>
     </div>
   );
 }
