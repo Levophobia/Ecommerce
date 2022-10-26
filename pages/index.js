@@ -10,6 +10,7 @@ export default function Home() {
       </Head>
 
       <h1 className='text-3xl font-bold'>Next Github Test</h1>
+      <h1 className='text-3xl font-bold'>Testing a push</h1>
     </div>
   );
 }
