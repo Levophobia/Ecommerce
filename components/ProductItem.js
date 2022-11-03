@@ -24,7 +24,7 @@ export default function ProductItem({product}) {
         </a>
         </Link>
 
-        <p className="mb-2">${product.price}</p>
+        <p className="mb-2">$${product.price}</p>
         <button className="primary-button" type="button">Add to Cart</button>
        
 
