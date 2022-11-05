@@ -4,19 +4,19 @@ const data = {
       name: 'Battlefield 1',
       slug: 'battlefield-1',
       category: 'first-person-shooter',
-      image: '/images/battlefield1.jpg',
+      image: '/images/bfv.jpg',
       price: 49,
       rating: 4.5,
-      countInStock: 20,
+      countInStock: 0,
       description:
-        'Battlefield 1 offers players four distinct core classes to choose from, each serving a specific purpose, each indispensable in the struggle for ultimate victory. For players eager to jump into the fray, there is the Assault class, masters of explosives and close combat. They carry the best loadout if you need to blow up a tank or skewer your enemy on a bayonette in a heroic charge towards victory. The Medics are there to heal allies and fix their vehicles, and to defend them vigorously with a gun, should it be necessary. Scouts are for those, who like to sneak around and pick off enemies from a distance with a trusty sniper rifle, or to provide intel to allies, thanks to flaregun showing enemies on a minmap. Finally there are the Supports, providing the much needed and ever useful hail of bullets, both from barrels of their rapid-fire guns and deep pockets, resupplying allies.',
+        'With Battlefield V, the series goes back to its roots in a never-before-seen portrayal of World War 2. Take on physical, all-out multiplayer with your squad in modes like the vast Grand Operations and the cooperative Combined Arms, or witness human drama set against global combat in the single player War Stories. As you fight in epic, unexpected locations across the globe, enjoy the richest and most immersive Battlefield yet.',
     },
 
     {
       name: 'Europa Universalis IV',
       slug: 'europa-universalis-4',
       category: 'strategy',
-      image: '/images/europauniversalis4.jpeg',
+      image: '/images/eu4.jpg',
       price: 19,
       rating: 4.8,
       countInStock: 20,
