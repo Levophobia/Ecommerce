@@ -19,7 +19,7 @@ const data = {
       image: '/images/eu4.jpg',
       price: 19,
       rating: 4.8,
-      countInStock: 20,
+      countInStock: 10,
       description:
         'Europa Universalis IV gives you control of a nation through four dramatic centuries. Rule your land and dominate the world with unparalleled freedom, depth and historical accuracy. Write a new history of the world and build an empire for the ages.',
     },
