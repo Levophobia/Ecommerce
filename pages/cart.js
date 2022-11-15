@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import Layout from '../components/Layout';
-import { XCircleIcon } from '@heroicons/react/outline';
+import { MinusCircleIcon, PlusCircleIcon, XCircleIcon } from '@heroicons/react/outline';
 import { Store } from '../utils/store';
 import { useRouter } from 'next/router';
 
@@ -19,10 +19,21 @@ export default function CartScreen() {
   };
 
 
-  const updateCartHandler = (item, qty) =>{
-    const quantity = Number(qty)
+  const updateCartMinus = (item, qty) =>{
+    const quantity = Number(qty) - 1
     dispatch({type: 'CART_ADD_ITEM', payload: {...item, quantity}})
   }
+
+  const updateCartPlus = (item, qty) =>{
+    const quantity = Number(qty) + 1
+    dispatch({type: 'CART_ADD_ITEM', payload: {...item, quantity}})
+  }
+
+
+  /* const updateCartHandler = (item, qty) =>{
+    const quantity = Number(qty)
+    dispatch({type: 'CART_ADD_ITEM', payload: {...item, quantity}})
+  } */
 
   return (
     <Layout>
@@ -58,14 +69,32 @@ export default function CartScreen() {
                         </a>
                       </Link>
                     </td>
-                    <td className="p-5 text-center">{item.quantity}</td>
-                    <td className="p-5 text-center">                    
+                    <td className="p-5 text-center">
+
+
+                     <button onClick={() => updateCartMinus(item, item.quantity)}>
+                    <MinusCircleIcon  className="h-5 w-5" ></MinusCircleIcon>
+                    </button> 
                       
-                      <select value = {item.quantity} onChange= {(e) => updateCartHandler(item, e.target.value)}>
+                    {item.quantity}
+
+                    <button onClick={() => updateCartPlus(item, item.quantity)}>
+                    <PlusCircleIcon className="h-5 w-5" ></PlusCircleIcon>
+                    </button>
+
+                      {/* <select value = {item.quantity} onChange= {(e) => updateCartHandler(item, e.target.value)}>
                     {[...Array(item.countInStock).keys()].map((x) => (
                       <option key= { x + 1 } value = {x + 1}>{x + 1}</option>
                     ))}
-                    </select>
+                    </select> */}
+                    
+                    
+                    </td>
+                    <td className="p-5 text-center">                    
+                      
+                  
+                    
+                    {item.price * item.quantity}
                     
                     </td>
                     
@@ -89,7 +118,7 @@ export default function CartScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('/shipping')}
+                  onClick={() => router.push('login?redirect=/shipping')}
                   className="primary-button w-full"
                 >
                   Check Out
