@@ -2,11 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import Layout from '../components/Layout';
-import { MinusCircleIcon, PlusCircleIcon, XCircleIcon } from '@heroicons/react/outline';
+import {
+  MinusCircleIcon,
+  PlusCircleIcon,
+  XCircleIcon,
+} from '@heroicons/react/outline';
 import { Store } from '../utils/store';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-export default function CartScreen() {
+function CartScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
 
@@ -18,17 +23,15 @@ export default function CartScreen() {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
 
+  const updateCartMinus = (item, qty) => {
+    const quantity = Number(qty) - 1;
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+  };
 
-  const updateCartMinus = (item, qty) =>{
-    const quantity = Number(qty) - 1
-    dispatch({type: 'CART_ADD_ITEM', payload: {...item, quantity}})
-  }
-
-  const updateCartPlus = (item, qty) =>{
-    const quantity = Number(qty) + 1
-    dispatch({type: 'CART_ADD_ITEM', payload: {...item, quantity}})
-  }
-
+  const updateCartPlus = (item, qty) => {
+    const quantity = Number(qty) + 1;
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+  };
 
   /* const updateCartHandler = (item, qty) =>{
     const quantity = Number(qty)
@@ -70,34 +73,30 @@ export default function CartScreen() {
                       </Link>
                     </td>
                     <td className="p-5 text-center">
+                      <button
+                        onClick={() => updateCartMinus(item, item.quantity)}
+                      >
+                        <MinusCircleIcon className="h-5 w-5"></MinusCircleIcon>
+                      </button>
 
+                      {item.quantity}
 
-                     <button onClick={() => updateCartMinus(item, item.quantity)}>
-                    <MinusCircleIcon  className="h-5 w-5" ></MinusCircleIcon>
-                    </button> 
-                      
-                    {item.quantity}
-
-                    <button onClick={() => updateCartPlus(item, item.quantity)}>
-                    <PlusCircleIcon className="h-5 w-5" ></PlusCircleIcon>
-                    </button>
+                      <button
+                        onClick={() => updateCartPlus(item, item.quantity)}
+                      >
+                        <PlusCircleIcon className="h-5 w-5"></PlusCircleIcon>
+                      </button>
 
                       {/* <select value = {item.quantity} onChange= {(e) => updateCartHandler(item, e.target.value)}>
                     {[...Array(item.countInStock).keys()].map((x) => (
                       <option key= { x + 1 } value = {x + 1}>{x + 1}</option>
                     ))}
                     </select> */}
-                    
-                    
                     </td>
-                    <td className="p-5 text-center">                    
-                      
-                  
-                    
-                    {item.price * item.quantity}
-                    
+                    <td className="p-5 text-center">
+                      {item.price * item.quantity}
                     </td>
-                    
+
                     <td className="p-5 text-center">
                       <button onClick={() => removeItemHandler(item)}>
                         <XCircleIcon className="h-5 w-5"></XCircleIcon>
@@ -131,3 +130,5 @@ export default function CartScreen() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
