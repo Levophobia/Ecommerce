@@ -10,6 +10,8 @@ import {
 import { Store } from '../utils/store';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function CartScreen() {
   const router = useRouter();
@@ -28,9 +30,15 @@ function CartScreen() {
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
   };
 
-  const updateCartPlus = (item, qty) => {
+  const updateCartPlus = async (item, qty) => {
     const quantity = Number(qty) + 1;
+    const {data} = await axios.get(`/api/products/${item._id}`)
+    if(data.countInStock < quantity){
+      return toast.error('Sorry product is out of stock')
+      
+    }
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+    
   };
 
   /* const updateCartHandler = (item, qty) =>{

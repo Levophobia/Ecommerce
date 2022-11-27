@@ -3,24 +3,11 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { Store } from "../utils/store";
 
-export default function ProductItem({product}) {
+export default function ProductItem({product, addToCartHandler}) {
 
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
 
   console.log(state)
-
-
-  const addToCartHandler = () => {
-    const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-
-    if (product.countInStock < quantity) {
-      alert('Sorry. Product is out of stock');
-      return;
-    }
-
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
-  };
   
   
   return (
@@ -45,7 +32,7 @@ export default function ProductItem({product}) {
         </Link>
 
         <p className="mb-2">${product.price}</p>
-        <button onClick={addToCartHandler} className="primary-button" type="button">Add to Cart</button>
+        <button onClick={() => addToCartHandler(product)} className="primary-button" type="button">Add to Cart</button>
        
 
       </div>
