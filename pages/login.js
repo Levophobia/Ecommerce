@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import Layout from '../components/Layout'
 import { toast } from 'react-toastify'
 import {useRouter } from 'next/router'
+import { getError } from '../utils/error'
 
 export default function login() {
 
@@ -37,8 +38,7 @@ export default function login() {
             toast.error(result.error);
         }           
             }catch(err){
-                toast.error(getError(err));
-                
+                toast.error(getError(err));            
             }
         }
     
@@ -70,7 +70,7 @@ export default function login() {
             </div>
             <div className='mb-4'>
                 Don&apos;t have an account? &nbsp;
-                <Link href="/register">Register</Link>
+                <Link href={`/register?redirect=${redirect || '/'}`}>Register</Link>
             </div>
 
         </form>

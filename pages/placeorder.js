@@ -1,8 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import CheckoutWizard from '../components/CheckoutWizard';
 import Layout from '../components/Layout';
+import { getError } from '../utils/error';
 import { Store } from '../utils/store';
 
 export default function placeorder() {
@@ -13,6 +19,42 @@ export default function placeorder() {
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; 
 
   const itemsPrice = round2(cartItems.reduce((a, c) => a + c.quantity * c.price, 0))
+
+const router = useRouter()
+
+    useEffect(() => {
+        if(!paymentMethod){
+            router.push("/payment")
+        }
+    },[paymentMethod, router])
+
+    const [loading, setLoading] = useState(false)
+
+    const placeOrderHandler = async () => {
+        try {
+          setLoading(true);
+          const { data } = await axios.post('/api/orders', {
+            orderItems: cartItems,
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            
+          });
+          setLoading(false);
+          dispatch({ type: 'CART_CLEAR_ITEMS' });
+          Cookies.set(
+            'cart',
+            JSON.stringify({
+              ...cart,
+              cartItems: [],
+            })
+          );
+          router.push(`/order/${data._id}`);
+        } catch (err) {
+          setLoading(false);
+          toast.error(getError(err));
+        }
+      };
 
   return (
     <div>
@@ -82,10 +124,9 @@ export default function placeorder() {
               <ul>
                 <li>
                   <div className='mb-2 flex justify-between'>
-                    <div>Items</div>
                     <div>Total: {itemsPrice}</div>
                   </div>
-                  <button diabled={loading} onClick={placeOrderHandler} className='primary-button w-full'>
+                  <button disabled={loading} onClick={placeOrderHandler} className='primary-button w-full'>
                     {loading? 'loading...': 'Place Order'}
                   </button>
                 </li>

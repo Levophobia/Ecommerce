@@ -54,6 +54,7 @@ export default function Layout({ title, children }) {
               ) : session?.user ? 
                 <Link legacyBehavior href='/profiledetails'>
                 <a>{session.user.firstname}</a>
+                
                 </Link>
                : (
                 <Link legacyBehavior href="/login">
