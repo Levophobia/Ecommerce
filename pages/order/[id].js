@@ -200,6 +200,8 @@ function OrderScreen() {
                   <div>{itemsPrice}</div>
                 </div>
               </li>
+
+              
               {!isPaid && (
                   <li>
                     {isPending ? (

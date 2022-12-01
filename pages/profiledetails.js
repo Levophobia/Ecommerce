@@ -19,6 +19,7 @@ const logoutHandler = () =>{
       <div>
         <Link href="/orderhistory">Orderhistory</Link>
       </div>
+      <div><Link href="/updateprofile">Update profile</Link></div>
     </div>
   )
 }
