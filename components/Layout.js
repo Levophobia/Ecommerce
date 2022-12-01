@@ -38,6 +38,8 @@ export default function Layout({ title, children }) {
               <a className="text-lg font-bold">Home Page</a>
             </Link>
 
+            {session && session.user.isAdmin ? <Link href='/admin/dashboard'>Admin dashboard</Link> : <></>}
+
             <div>
               <Link legacyBehavior href="/cart">
                 <a className="p-2">Cart

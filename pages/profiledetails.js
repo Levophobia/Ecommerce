@@ -1,4 +1,4 @@
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -8,11 +8,17 @@ const logoutHandler = () =>{
     signOut({callbackUrl: '/login'})
 }
 
-
+const {status, data: session} = useSession();
 
   return (
     
     <div>
+
+      <div>{session.user.firstname}</div>
+      <div>{session.user.lastname}</div>
+      <div>{session.user.email}</div>
+
+
       <div>
       <a onClick={logoutHandler}>Logout</a>
       </div>
